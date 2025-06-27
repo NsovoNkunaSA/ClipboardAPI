@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clipboard API</title>
+        <style>
+            body {
+                margin: 30px;
+            }
+            * {
+                font-family: 'Roboto';
+            }
+            p, button, input[type=text] {
+                font-size: 16px;
+            }
+            button {
+                display: inline-block;
+                margin: 5px;
+                padding: 5px 10px;
+                min-width: 70px;
+            }
+            input[type=text] {
+                padding: 5px;
+                width: 300px;
+            }
+        </style>
+        <script src="api.js"></script>
+    </head>
+    <body>
+        <h1>Clipboard API</h1>
+        
+        <!-- Copy and Paste -->
+        <p>Copy and paste text</p>
+
+        <input type="text" id="copy-text">
+        <button onclick="CopyText();">Copy</button><br>
+        
+        <input type="text" id="paste-text">
+        <button onclick="PasteText();">Paste</button>
+
+        <!-- Part 2 -->
+        <p>Using event listeners</p>
+        <input type="text" id="copy-paste-textbox">
+        <p id="event-text"></p>
+
+        <!-- Part 3 -->
+        <p>Pasting images</p>
+        <img src="" id="clipboard-image" width="300">
+        <p id="filename"></p>
+    </body>
+</html>
