@@ -1,50 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Clipboard API</title>
-        <style>
-            body {
-                margin: 30px;
-            }
-            * {
-                font-family: 'Roboto';
-            }
-            p, button, input[type=text] {
-                font-size: 16px;
-            }
-            button {
-                display: inline-block;
-                margin: 5px;
-                padding: 5px 10px;
-                min-width: 70px;
-            }
-            input[type=text] {
-                padding: 5px;
-                width: 300px;
-            }
-        </style>
-        <script src="api.js"></script>
-    </head>
-    <body>
-        <h1>Clipboard API</h1>
-        
-        <!-- Copy and Paste -->
+<head>
+    <title>Clipboard API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Clipboard API</h1>
+    
+    <!-- Copy and Paste -->
+    <section class="clipboard-section">
         <p>Copy and paste text</p>
-
         <input type="text" id="copy-text">
-        <button onclick="CopyText();">Copy</button><br>
+        <button onclick="CopyText()">Copy</button>
         
+        <br>
         <input type="text" id="paste-text">
-        <button onclick="PasteText();">Paste</button>
+        <button onclick="PasteText()">Paste</button>
+    </section>
 
-        <!-- Part 2 -->
+    <!-- Event Listeners -->
+    <section class="clipboard-section">
         <p>Using event listeners</p>
-        <input type="text" id="copy-paste-textbox">
+        <input type="text" id="copy-paste-text">
         <p id="event-text"></p>
+    </section>
 
-        <!-- Part 3 -->
+    <!-- Image Pasting -->
+    <section class="clipboard-section">
         <p>Pasting images</p>
-        <img src="" id="clipboard-image" width="300">
+        <img src="" id="clipboard-image" width="300" alt="Image will appear here">
         <p id="filename"></p>
-    </body>
+    </section>
+
+    <script src="script.js"></script>
+</body>
 </html>
