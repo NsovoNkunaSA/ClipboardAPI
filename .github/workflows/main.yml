@@ -1,35 +1,49 @@
+# Name of the GitHub Actions workflow
 name: coverage
 
+# Trigger the workflow on pushes and pull requests to the main branch
 on:
   push:
-    branches: main
+    branches: [main]
   pull_request:
-    branches: main
+    branches: [main]
 
 jobs:
   test:
-    name: Run Jest Tests
-    runs-on: ubuntu-latest
+    # Job name shown in GitHub Actions UI
+    name: Run Jest Tests and Upload to Codecov
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
-      - uses: actions/checkout@v4
+      # Step 1: Check out the code from your GitHub repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      # Step 2: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20  # Specify Node.js version
 
+      # Step 3: Install project dependencies using npm
+      # Using `npm install` because `npm ci` requires a package-lock.json
       - name: Install dependencies
-        run: npm ci  # Uses package-lock.json for deterministic installs
+        run: npm install
 
-      - name: Set Permissions
-        run: chmod +x node_modules/.bin/jest  # Usually not required unless you get permission errors
+      # Step 4 (optional): Set executable permission on Jest binary
+      # Only needed if Jest is not executable by default in your project
+      - name: Set permissions for Jest
+        run: chmod +x node_modules/.bin/jest
 
+      # Step 5: Run your Jest tests and generate a coverage report
+      # The coverage report will be saved to ./coverage/lcov.info
       - name: Run tests with coverage
-        run: npm run test -- --coverage  # Assumes your test script uses Jest
+        run: npm run test -- --coverage
 
+      # Step 6: Upload the coverage report to Codecov
+      # The token is only required if your repo is private
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
-          files: ./coverage/lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}  # Not needed for public repos
+          files: ./coverage/lcov.info  # Path to the coverage report file
+          token: ${{ secrets.CODECOV_TOKEN }}  # Secret set in GitHub for private repos
