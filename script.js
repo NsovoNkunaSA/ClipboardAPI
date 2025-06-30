@@ -22,3 +22,26 @@ function PasteText(){
         console.error("Error on clipboard", err);
     });
 }
+
+function setMessage(message, isError = false){
+    try{
+        const messageElement = document.getElementById("event-text");
+        if(!messageElement) throw new Error("Message element not found");
+        messageElement.innerText = message;
+        if(isError){
+            messageElement.style.color= 'red';
+        }
+        else{
+            messageElement.style.color = ''; //reset to default
+        }
+
+        setTimeout(() => {
+            messageElement.innerText = "";
+        },2000);
+    }
+
+    catch (error){
+        console.error("Error in the message sent:", error)
+    }
+    
+}
