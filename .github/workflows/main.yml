@@ -1,0 +1,35 @@
+name: coverage
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  test:
+    name: Run Jest Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci  # Uses package-lock.json for deterministic installs
+
+      - name: Set Permissions
+        run: chmod +x node_modules/.bin/jest  # Usually not required unless you get permission errors
+
+      - name: Run tests with coverage
+        run: npm run test -- --coverage  # Assumes your test script uses Jest
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}  # Not needed for public repos
